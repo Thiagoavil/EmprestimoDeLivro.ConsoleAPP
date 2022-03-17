@@ -75,6 +75,15 @@ namespace EmprestimoDeLivro
 
         public void MostrarCaixa()
         {
+            if(contadorCaixa==0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem caixas");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                return;
+            }
             for (int i = 0; i<contadorCaixa; i++)
             {
                 Console.WriteLine("Id: "+i);

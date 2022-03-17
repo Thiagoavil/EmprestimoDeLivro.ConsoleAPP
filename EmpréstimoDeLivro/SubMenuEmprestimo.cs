@@ -4,8 +4,8 @@ namespace EmprestimoDeLivro
 {
     internal class SubMenuEmprestimo
     {
-        public SubMenuAmigos AmigosUtilizados;
-        public SubMenuRevistas RevistasUtilizadas;
+        public SubMenuAmigos AmigosEmprestimo;
+        public SubMenuRevistas RevistasEmprestimos;
         public int contadorEmprestimo = 0;
         public Emprestimos[] registroDeEmprestimo = new Emprestimos[100];
         string opcaoSubMenu = "0";
@@ -65,18 +65,18 @@ namespace EmprestimoDeLivro
         {
 
 
-            if (AmigosUtilizados.contadorAmigo > 0)
+            if (AmigosEmprestimo.contadorAmigo > 0)
             {
                 registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
 
-                AmigosUtilizados.MostrarAmigos();
+                AmigosEmprestimo.MostrarAmigos();
 
                 Console.WriteLine("Digite o id do amigo selecionado: ");
                 int seletorDeAmigos = Convert.ToInt32(Console.ReadLine());
 
-                if (AmigosUtilizados.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
+                if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
                 {
-                    registroDeEmprestimo[contadorEmprestimo].amigo = AmigosUtilizados.registroDeAmigos[seletorDeAmigos];
+                    registroDeEmprestimo[contadorEmprestimo].amigo = AmigosEmprestimo.registroDeAmigos[seletorDeAmigos];
                 }
                 else
                 {
@@ -91,17 +91,17 @@ namespace EmprestimoDeLivro
                 return;
             }
             Console.Clear();
-            Console.WriteLine("O amigo selecionado é: " + AmigosUtilizados.registroDeAmigos[contadorEmprestimo].nome);
+            Console.WriteLine("O amigo selecionado é: " + AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].nome);
             Console.WriteLine("");
 
 
-            if (RevistasUtilizadas.contadorRevista > 0)
+            if (RevistasEmprestimos.contadorRevista > 0)
             {
-                RevistasUtilizadas.MostrarRevista();
+                RevistasEmprestimos.MostrarRevista();
                 Console.WriteLine("Digite o id da revista selecionada: ");
                 int seletorDeRevista = Convert.ToInt32(Console.ReadLine());
 
-                registroDeEmprestimo[contadorEmprestimo].revista = RevistasUtilizadas.registroDeRevista[seletorDeRevista];
+                registroDeEmprestimo[contadorEmprestimo].revista = RevistasEmprestimos.registroDeRevista[seletorDeRevista];
             }
             else
             {
@@ -110,8 +110,8 @@ namespace EmprestimoDeLivro
             }
 
             Console.Clear();
-            Console.WriteLine("O amigo selecionado é: " + AmigosUtilizados.registroDeAmigos[contadorEmprestimo].nome);
-            Console.WriteLine("A revista selecionada é: " + RevistasUtilizadas.registroDeRevista[contadorEmprestimo].colecao);
+            Console.WriteLine("O amigo selecionado é: " + AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].nome);
+            Console.WriteLine("A revista selecionada é: " + RevistasEmprestimos.registroDeRevista[contadorEmprestimo].colecao);
 
             Console.WriteLine("Digite a data do empréstimo: ");
             string emprestimos = Console.ReadLine();
@@ -137,7 +137,7 @@ namespace EmprestimoDeLivro
             registroDeEmprestimo[contadorEmprestimo].dataDaDevolucao = new DateTime(anoDevolucao,
                 mesDevolucao, diaDevolucao);
 
-            AmigosUtilizados.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
+            AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
 
             if (registroDeEmprestimo[contadorEmprestimo].dataDaDevolucao < hoje)
             {
@@ -155,7 +155,15 @@ namespace EmprestimoDeLivro
 
         public void MostrarEmprestimo()
         {
-
+            if (contadorEmprestimo==0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem Empréstimos");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                return;
+            }
             for (int i = 0; i < contadorEmprestimo; i++)
             {
                 Console.WriteLine("Amigo: " + registroDeEmprestimo[i].amigo.nome);

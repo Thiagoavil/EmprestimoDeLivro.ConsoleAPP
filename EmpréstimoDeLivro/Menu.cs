@@ -11,13 +11,17 @@ namespace EmprestimoDeLivro
             SubMenuAmigos subMenuAmigos = new SubMenuAmigos();
             SubMenuCaixa subMenuCaixa = new SubMenuCaixa();
             SubMenuRevistas subMenuRevistas = new SubMenuRevistas();
-            subMenuRevistas.CaixaUtilizada = subMenuCaixa;
             SubMenuEmprestimo subMenuEmprestimo= new SubMenuEmprestimo();
-            subMenuEmprestimo.AmigosUtilizados = subMenuAmigos;
-            subMenuEmprestimo.RevistasUtilizadas = subMenuRevistas;
-            
+            SubMenuCategorias subMenuCategorias = new SubMenuCategorias();
+            subMenuEmprestimo.AmigosEmprestimo = subMenuAmigos;
+            subMenuEmprestimo.RevistasEmprestimos = subMenuRevistas;
+            subMenuRevistas.CaixaRevista = subMenuCaixa;
+            subMenuCategorias.RevistaCategoria = subMenuRevistas;
+            subMenuRevistas.CategoriaRevistas= subMenuCategorias;
 
-            
+
+
+
             while (true)
             {
                 Console.WriteLine("Clube da Leitura");
@@ -49,6 +53,10 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     subMenuEmprestimo.MenuEmprestimo();
+                }
+                else if(opcaoMenu =="5")
+                {
+                    subMenuCategorias.MenuCategorias();
                 }
                 else
                 {

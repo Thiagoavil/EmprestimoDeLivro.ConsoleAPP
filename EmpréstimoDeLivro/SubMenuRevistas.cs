@@ -4,7 +4,8 @@ namespace EmprestimoDeLivro
 {
     internal class SubMenuRevistas
     {
-        public SubMenuCaixa CaixaUtilizada;
+        public SubMenuCaixa CaixaRevista;
+        public SubMenuCategorias CategoriaRevistas;
         public int contadorRevista = 0;
         public Revista[] registroDeRevista = new Revista[100];
         string opcaoSubMenu = "0";
@@ -55,7 +56,13 @@ namespace EmprestimoDeLivro
 
         public void CadastrarRevistas()
         {
-            if (CaixaUtilizada.contadorCaixa == 0)
+            if(CategoriaRevistas.contadorCategoria==0)
+            {
+                Console.Clear();
+                Console.WriteLine("Não existem categorias criadas");
+                return;
+            }
+            if (CaixaRevista.contadorCaixa == 0)
             {
                 Console.WriteLine("Não existem caixas criadas");
             }
@@ -72,20 +79,28 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("Digite o ano de lançamento da revista: ");
                 registroDeRevista[contadorRevista].anoDeLancamento = Console.ReadLine();
 
+                Console.Clear();
+                CategoriaRevistas.VisualizarCategoria();
+
+                Console.WriteLine("Digite o Id Da categoria");
+                int seletorCategoria =Convert.ToInt32(Console.ReadLine());
+                registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.registroDeCategorias[seletorCategoria];
+                Console.Clear();
+
                 while (true)
                 {
-                    CaixaUtilizada.MostrarCaixa();
+                    CaixaRevista.MostrarCaixa();
 
                     Console.WriteLine("Digite o Id da caixa onde irá guardar");
                     int seletorDaCaixa = Convert.ToInt32(Console.ReadLine());
-                    if (CaixaUtilizada.registroDeCaixas[seletorDaCaixa].contadorDeRevistasNaCaixa == 10)
+                    if (CaixaRevista.registroDeCaixas[seletorDaCaixa].contadorDeRevistasNaCaixa == 10)
                     {
                         Console.WriteLine("Essa caixa está cheia, selecione outra caixa");
                         continue;
                     }
                     else
                     {
-                        registroDeRevista[contadorRevista].qualCaixa = CaixaUtilizada.registroDeCaixas[seletorDaCaixa];
+                        registroDeRevista[contadorRevista].qualCaixa = CaixaRevista.registroDeCaixas[seletorDaCaixa];
                         break;
                     }
 
@@ -97,6 +112,15 @@ namespace EmprestimoDeLivro
         }
         public void MostrarRevista()
         {
+            if(contadorRevista==0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem Revistas");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                return;
+            }
             for (int i = 0; i < contadorRevista; i++)
             {
                 Console.WriteLine("id: " + i);

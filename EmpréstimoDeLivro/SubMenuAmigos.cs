@@ -83,6 +83,15 @@ namespace EmprestimoDeLivro
 
         public void MostrarAmigos()
         {
+            if (contadorAmigo==0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem Amigos");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                return;
+            }
             for (int i = 0; i < contadorAmigo; i++)
             {
                 Console.WriteLine("Id: " + i);

@@ -12,6 +12,8 @@ namespace EmprestimoDeLivro
         public string edicao;
         public string anoDeLancamento;
         public Caixa qualCaixa;
+        public Categorias qualCategoria;
+        
 
         
     }
