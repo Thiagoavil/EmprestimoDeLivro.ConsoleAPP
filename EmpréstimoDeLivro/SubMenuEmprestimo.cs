@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace EmprestimoDeLivro
 {
@@ -13,6 +9,7 @@ namespace EmprestimoDeLivro
         public int contadorEmprestimo = 0;
         public Emprestimos[] registroDeEmprestimo = new Emprestimos[100];
         string opcaoSubMenu = "0";
+        DateTime hoje = DateTime.Now;
 
         public void MenuEmprestimo()
         {
@@ -24,7 +21,7 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("2- Para visualiza empréstimo ");
                 Console.WriteLine("3- Para visualiza empréstimos por mes ");
                 Console.WriteLine("s- Para sair");
-                opcaoSubMenu =Console.ReadLine();
+                opcaoSubMenu = Console.ReadLine();
 
                 if (opcaoSubMenu == "1")
                 {
@@ -66,12 +63,12 @@ namespace EmprestimoDeLivro
 
         public void CadastrarEmprestimo()
         {
-            
-            
+
+
             if (AmigosUtilizados.contadorAmigo > 0)
             {
                 registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
-               
+
                 AmigosUtilizados.MostrarAmigos();
 
                 Console.WriteLine("Digite o id do amigo selecionado: ");
@@ -86,16 +83,16 @@ namespace EmprestimoDeLivro
                     Console.WriteLine("Esse amigo já tem um empréstimo");
                     return;
                 }
-                
+
             }
             else
             {
                 Console.WriteLine("Ñão existem amigos cadastrados");
                 return;
             }
-                Console.Clear();
-                Console.WriteLine("O amigo selecionado é: "+ AmigosUtilizados.registroDeAmigos[contadorEmprestimo].nome);
-                Console.WriteLine("");
+            Console.Clear();
+            Console.WriteLine("O amigo selecionado é: " + AmigosUtilizados.registroDeAmigos[contadorEmprestimo].nome);
+            Console.WriteLine("");
 
 
             if (RevistasUtilizadas.contadorRevista > 0)
@@ -104,7 +101,7 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("Digite o id da revista selecionada: ");
                 int seletorDeRevista = Convert.ToInt32(Console.ReadLine());
 
-                registroDeEmprestimo[contadorEmprestimo].revista=RevistasUtilizadas.registroDeRevista[seletorDeRevista];
+                registroDeEmprestimo[contadorEmprestimo].revista = RevistasUtilizadas.registroDeRevista[seletorDeRevista];
             }
             else
             {
@@ -117,71 +114,113 @@ namespace EmprestimoDeLivro
             Console.WriteLine("A revista selecionada é: " + RevistasUtilizadas.registroDeRevista[contadorEmprestimo].colecao);
 
             Console.WriteLine("Digite a data do empréstimo: ");
-            string emprestimos= Console.ReadLine();
-           
+            string emprestimos = Console.ReadLine();
+
             string[] dataSeparadaEmprestimo = emprestimos.Split("/");
             int diaEmprestimo = int.Parse(dataSeparadaEmprestimo[0]);
             int mesEmprestimo = int.Parse(dataSeparadaEmprestimo[1]);
             int anoEmprestimo = int.Parse(dataSeparadaEmprestimo[2]);
-            
-            registroDeEmprestimo[contadorEmprestimo].dataDoEmprestimo= new DateTime(anoEmprestimo, 
+
+            registroDeEmprestimo[contadorEmprestimo].dataDoEmprestimo = new DateTime(anoEmprestimo,
                 mesEmprestimo, diaEmprestimo);
 
             Console.WriteLine("Digite a data de devolução: ");
             string devolução = Console.ReadLine();
-            
+
             string[] dataSeparadaDevolucao = devolução.Split("/");
             int diaDevolucao = int.Parse(dataSeparadaDevolucao[0]);
             int mesDevolucao = int.Parse(dataSeparadaDevolucao[1]);
             int anoDevolucao = int.Parse(dataSeparadaDevolucao[2]);
 
-             
+
 
             registroDeEmprestimo[contadorEmprestimo].dataDaDevolucao = new DateTime(anoDevolucao,
                 mesDevolucao, diaDevolucao);
 
             AmigosUtilizados.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
-            
+
+            if (registroDeEmprestimo[contadorEmprestimo].dataDaDevolucao < hoje)
+            {
+                registroDeEmprestimo[contadorEmprestimo].aberto = false;
+            }
+            else
+            {
+                registroDeEmprestimo[contadorEmprestimo].aberto = true;
+            }
+
             contadorEmprestimo++;
-            
+
             Console.Clear();
         }
 
         public void MostrarEmprestimo()
         {
-            
-            for(int i=0;i<contadorEmprestimo; i++)
+
+            for (int i = 0; i < contadorEmprestimo; i++)
             {
                 Console.WriteLine("Amigo: " + registroDeEmprestimo[i].amigo.nome);
                 Console.WriteLine("Revista: " + registroDeEmprestimo[i].revista.colecao);
-                Console.WriteLine("Data de empréstimo: "+registroDeEmprestimo[i].dataDoEmprestimo);
-                Console.WriteLine("Data de devolução: "+registroDeEmprestimo[i].dataDaDevolucao);
+                Console.WriteLine("Data de empréstimo: " + registroDeEmprestimo[i].dataDoEmprestimo);
+                Console.WriteLine("Data de devolução: " + registroDeEmprestimo[i].dataDaDevolucao);
             }
         }
 
         public void EmprestimosMensais()
         {
             //contador de possições
-            int marcador = 0;
-            Console.WriteLine("Digite o mes que quer ver:  (mm)");
-            int mesDigitado= Convert.ToInt32(Console.ReadLine());
 
-             DateTime mesEscolhido= new DateTime(mesDigitado);
+            int marcador = 0;
+            Console.WriteLine("Emprestimos mensais");
+            Console.WriteLine("--------------------");
+            Console.WriteLine("Digite o mes que quer ver:  (mm)");
+            int mesDigitado = Convert.ToInt32(Console.ReadLine());
 
             while (marcador > contadorEmprestimo)
             {
-                if (registroDeEmprestimo[marcador].dataDoEmprestimo == mesEscolhido)
+                if (registroDeEmprestimo[marcador].dataDoEmprestimo.Year == hoje.Year)
                 {
-                    Console.WriteLine("Amigo: " + registroDeEmprestimo[marcador].amigo);
-                    Console.WriteLine("Revista: " + registroDeEmprestimo[marcador].revista);
-                    Console.WriteLine("Data de empréstimo: " + registroDeEmprestimo[marcador].dataDoEmprestimo);
-                    Console.WriteLine("Data de devolução: " + registroDeEmprestimo[marcador].dataDaDevolucao);
-                    marcador++;
+                    if (registroDeEmprestimo[marcador].dataDoEmprestimo.Month == mesDigitado)
+                    {
+                        Console.WriteLine("Amigo: " + registroDeEmprestimo[marcador].amigo);
+                        Console.WriteLine("Revista: " + registroDeEmprestimo[marcador].revista);
+                        Console.WriteLine("Data de empréstimo: " + registroDeEmprestimo[marcador].dataDoEmprestimo);
+                        Console.WriteLine("Data de devolução: " + registroDeEmprestimo[marcador].dataDaDevolucao);
+
+                    }
                 }
-                else
+                marcador++;
+            }
+
+
+        }
+
+        public void MostrarDiario()
+        {
+            int marcador = 0;
+            Console.WriteLine("Emprestimos Diário");
+            Console.WriteLine("-----------------------");
+            Console.WriteLine("Digite o dia que quer ver:  (mm)");
+            int diaDigitado = Convert.ToInt32(Console.ReadLine());
+
+            while (marcador > contadorEmprestimo)
+            {
+                if (registroDeEmprestimo[marcador].dataDoEmprestimo.Year == hoje.Year &&
+                    registroDeEmprestimo[marcador].dataDoEmprestimo.Month == hoje.Month && 
+                    registroDeEmprestimo[marcador].dataDoEmprestimo.Day == diaDigitado)
                 {
-                    marcador++;
+
+                    if (registroDeEmprestimo[marcador].aberto)
+                    {
+                        Console.WriteLine("Amigo: " + registroDeEmprestimo[marcador].amigo);
+                        Console.WriteLine("Revista: " + registroDeEmprestimo[marcador].revista);
+                        Console.WriteLine("Data de empréstimo: " + registroDeEmprestimo[marcador].
+                            dataDoEmprestimo);
+                        Console.WriteLine("Data de devolução: " + registroDeEmprestimo[marcador].
+                            dataDaDevolucao);
+                    }
+
                 }
+                marcador++;
             }
         }
     }

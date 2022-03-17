@@ -51,7 +51,7 @@ namespace EmprestimoDeLivro
                     continue;
                 }
 
-                break;
+               
             }
         }
 

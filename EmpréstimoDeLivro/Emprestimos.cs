@@ -12,7 +12,7 @@ namespace EmprestimoDeLivro
         public Revista revista;
         public DateTime dataDoEmprestimo;
         public DateTime dataDaDevolucao;
-        public bool aberto = true;
+        public bool aberto;
 
 
     }
