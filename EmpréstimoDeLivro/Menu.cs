@@ -17,7 +17,7 @@ namespace EmpréstimoDeLivro
             subMenuEmprestimo.RevistasUtilizadas = subMenuRevistas;
             
 
-
+            
             while (true)
             {
                 Console.WriteLine("Clube da Leitura");
