@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EmpréstimoDeLivro
+namespace EmprestimoDeLivro
 {
     internal class SubMenuRevistas
     {
