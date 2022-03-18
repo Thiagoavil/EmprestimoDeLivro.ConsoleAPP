@@ -17,16 +17,17 @@ namespace EmprestimoDeLivro
             {
                 Console.WriteLine("Menu de Empréstimos");
                 Console.WriteLine("----------------------");
-                Console.WriteLine("1- Para cadastrar empréstimo");
+                Console.WriteLine("1- Para Agendar empréstimo");
                 Console.WriteLine("2- Para visualiza empréstimo ");
                 Console.WriteLine("3- Para visualiza empréstimos por mes ");
+                Console.WriteLine("4- Para cadastrar empréstimo");
                 Console.WriteLine("s- Para sair");
                 opcaoSubMenu = Console.ReadLine();
 
                 if (opcaoSubMenu == "1")
                 {
                     Console.Clear();
-                    CadastrarEmprestimo();
+                    AgendarEmprestimo();
                 }
                 else if (opcaoSubMenu == "2")
                 {
@@ -37,6 +38,11 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     EmprestimosMensais();
+                }
+                else if(opcaoSubMenu =="4")
+                {
+                    Console.Clear();
+                    CadastraEmprestimo();
                 }
                 else if (opcaoSubMenu == "s")
                 {
@@ -61,7 +67,7 @@ namespace EmprestimoDeLivro
 
 
 
-        public void CadastrarEmprestimo()
+        public void AgendarEmprestimo()
         {
 
 
@@ -124,18 +130,8 @@ namespace EmprestimoDeLivro
             registroDeEmprestimo[contadorEmprestimo].dataDoEmprestimo = new DateTime(anoEmprestimo,
                 mesEmprestimo, diaEmprestimo);
 
-            Console.WriteLine("Digite a data de devolução: ");
-            string devolução = Console.ReadLine();
-
-            string[] dataSeparadaDevolucao = devolução.Split("/");
-            int diaDevolucao = int.Parse(dataSeparadaDevolucao[0]);
-            int mesDevolucao = int.Parse(dataSeparadaDevolucao[1]);
-            int anoDevolucao = int.Parse(dataSeparadaDevolucao[2]);
-
-
-
-            registroDeEmprestimo[contadorEmprestimo].dataDaDevolucao = new DateTime(anoDevolucao,
-                mesDevolucao, diaDevolucao);
+            DateTime entrega = registroDeEmprestimo[contadorEmprestimo].dataDoEmprestimo.AddDays(RevistasEmprestimos.
+                registroDeRevista[contadorEmprestimo].qualCategoria.diasDeEmprestimo);
 
             AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
 
@@ -155,6 +151,7 @@ namespace EmprestimoDeLivro
 
         public void MostrarEmprestimo()
         {
+            
             if (contadorEmprestimo==0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -162,6 +159,7 @@ namespace EmprestimoDeLivro
                 Console.ResetColor();
                 Console.WriteLine("Pressione enter para continuar");
                 Console.ReadKey();
+                Console.Clear();
                 return;
             }
             for (int i = 0; i < contadorEmprestimo; i++)
@@ -176,6 +174,16 @@ namespace EmprestimoDeLivro
         public void EmprestimosMensais()
         {
             //contador de possições
+            if (contadorEmprestimo == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem Empréstimos");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                Console.Clear();
+                return;
+            }
 
             int marcador = 0;
             Console.WriteLine("Emprestimos mensais");
@@ -204,6 +212,18 @@ namespace EmprestimoDeLivro
 
         public void MostrarDiario()
         {
+
+            if (contadorEmprestimo == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem Empréstimos");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                Console.Clear();
+                return;
+            }
+
             int marcador = 0;
             Console.WriteLine("Emprestimos Diário");
             Console.WriteLine("-----------------------");
@@ -230,6 +250,11 @@ namespace EmprestimoDeLivro
                 }
                 marcador++;
             }
+        }
+
+        public void CadastraEmprestimo()
+        {
+
         }
     }
 }

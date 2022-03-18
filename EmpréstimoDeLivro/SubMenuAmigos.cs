@@ -90,6 +90,7 @@ namespace EmprestimoDeLivro
                 Console.ResetColor();
                 Console.WriteLine("Pressione enter para continuar");
                 Console.ReadKey();
+                Console.Clear();
                 return;
             }
             for (int i = 0; i < contadorAmigo; i++)
