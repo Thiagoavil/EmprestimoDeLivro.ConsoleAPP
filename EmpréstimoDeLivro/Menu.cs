@@ -31,7 +31,8 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("2- Menu de caixa");
                 Console.WriteLine("3- Menu de revista");
                 Console.WriteLine("4- Menu de empréstimo");
-                
+                Console.WriteLine("5- Menu de empréstimo");
+
                 opcaoMenu =Console.ReadLine();
 
                 if(opcaoMenu=="1")

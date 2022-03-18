@@ -13,5 +13,12 @@ namespace EmprestimoDeLivro
         public Revista qualrevista;
         public int contadorDeRevistasNaCategoria = 0;
         Revista[] revistasNaCategoria = new Revista[20];
+
+        public void InserirRevistaNaCategoria(Revista registroDeRevista )
+        {
+            revistasNaCategoria[contadorDeRevistasNaCategoria] = registroDeRevista;
+            contadorDeRevistasNaCategoria++;
+             
+        }
     }
 }

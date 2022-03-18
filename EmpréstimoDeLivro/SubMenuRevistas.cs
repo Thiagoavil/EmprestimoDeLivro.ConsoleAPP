@@ -9,6 +9,8 @@ namespace EmprestimoDeLivro
         public int contadorRevista = 0;
         public Revista[] registroDeRevista = new Revista[100];
         string opcaoSubMenu = "0";
+        int seletorDaCaixa;
+
 
         public void MenuRevista()
         {
@@ -65,6 +67,7 @@ namespace EmprestimoDeLivro
             if (CaixaRevista.contadorCaixa == 0)
             {
                 Console.WriteLine("Não existem caixas criadas");
+                return;
             }
             else
             {
@@ -84,7 +87,8 @@ namespace EmprestimoDeLivro
 
                 Console.WriteLine("Digite o Id Da categoria");
                 int seletorCategoria =Convert.ToInt32(Console.ReadLine());
-                registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.registroDeCategorias[seletorCategoria];
+                registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.
+                    registroDeCategorias[seletorCategoria];
                 Console.Clear();
 
                 while (true)
@@ -92,7 +96,7 @@ namespace EmprestimoDeLivro
                     CaixaRevista.MostrarCaixa();
 
                     Console.WriteLine("Digite o Id da caixa onde irá guardar");
-                    int seletorDaCaixa = Convert.ToInt32(Console.ReadLine());
+                    seletorDaCaixa = Convert.ToInt32(Console.ReadLine());
                     if (CaixaRevista.registroDeCaixas[seletorDaCaixa].contadorDeRevistasNaCaixa == 10)
                     {
                         Console.WriteLine("Essa caixa está cheia, selecione outra caixa");
@@ -106,6 +110,33 @@ namespace EmprestimoDeLivro
 
 
                 }
+               
+                
+                while(true)
+                {
+                    CategoriaRevistas.VisualizarCategoria();
+                    
+                    Console.WriteLine("Digite o Id da categoria selecionada");
+                    int seletorDaCategoria = Convert.ToInt32(Console.ReadLine());
+                    
+                    if (CategoriaRevistas.registroDeCategorias[seletorCategoria].contadorDeRevistasNaCategoria<20)
+                    {
+                        Console.WriteLine("Essa categoria está cheia");
+                        return;
+                    }
+                    else
+                    {
+                        registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.registroDeCategorias[seletorDaCategoria];
+                        
+                        break;
+                    }
+                }
+                    
+                CategoriaRevistas.registroDeCategorias[seletorCategoria].
+                    InserirRevistaNaCategoria(registroDeRevista[contadorRevista]);
+
+                CaixaRevista.registroDeCaixas[seletorDaCaixa].
+                    InserirRevistaNaCaixa(registroDeRevista[contadorRevista]);
                 contadorRevista++;
             }
             Console.Clear();
@@ -127,7 +158,9 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("Coleção: " + registroDeRevista[i].colecao);
                 Console.WriteLine("Edição: " + registroDeRevista[i].edicao);
                 Console.WriteLine("Ano de lançamento: " + registroDeRevista[i].anoDeLancamento);
-                Console.WriteLine("Cor/numero da caixa: " + registroDeRevista[i].qualCaixa.cor+"/"+registroDeRevista[i].qualCaixa.numero);
+                Console.WriteLine("Cor/numero da caixa: " + registroDeRevista[i].qualCaixa.cor+"/"+
+                    registroDeRevista[i].qualCaixa.numero);
+                Console.WriteLine("Categoria: "+ registroDeRevista[i].qualCategoria.nome);  
                 Console.WriteLine("");
             }
         }
