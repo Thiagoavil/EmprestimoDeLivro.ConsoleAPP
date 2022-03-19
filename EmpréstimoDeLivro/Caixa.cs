@@ -25,7 +25,10 @@ namespace EmprestimoDeLivro
 
         public void MostrarRevistasNaCaixa()
         {
-
+            for (int i = 0; i < contadorDeRevistasNaCaixa; i++)
+            {
+                Console.WriteLine("coleção da revista: " + revistasNaCaixa[i].colecao);
+            }
         }
     }
 }

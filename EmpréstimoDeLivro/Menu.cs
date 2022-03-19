@@ -57,6 +57,7 @@ namespace EmprestimoDeLivro
                 }
                 else if(opcaoMenu =="5")
                 {
+                    Console.Clear();
                     subMenuCategorias.MenuCategorias();
                 }
                 else

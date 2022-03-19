@@ -23,6 +23,11 @@ namespace EmprestimoDeLivro
 
         public void MostrarRevistasNaCategoria()
         {
+            for(int i = 0;i<contadorDeRevistasNaCategoria; i++)
+            {
+                Console.WriteLine("coleção da revista: " + revistasNaCategoria[i].colecao);
+
+            }
 
         }
     }
