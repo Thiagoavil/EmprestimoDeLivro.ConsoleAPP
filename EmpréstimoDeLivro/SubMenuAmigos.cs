@@ -101,7 +101,16 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("nome do Responsável: " + registroDeAmigos[i].nomeResponsavel);
                 Console.WriteLine("Numero do telefone: " + registroDeAmigos[i].telefone);
                 Console.WriteLine("O endereço: " + registroDeAmigos[i].endereço);
+                if (registroDeAmigos[i].temMulta)
+                {
+                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.WriteLine("Tem multa");
+                    Console.ResetColor();
+                    Console.WriteLine("Dias de multa: " + registroDeAmigos[i].Vacilo.diasDeMulta);
+                    Console.WriteLine("Valor da multa: R$" + registroDeAmigos[i].Vacilo.valorDaMulta);
+                }
                 Console.WriteLine("");
+
             }
         }
 

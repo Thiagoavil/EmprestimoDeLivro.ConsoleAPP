@@ -41,6 +41,8 @@ namespace EmprestimoDeLivro
 
         public void CadastrarCategoria()
         {
+            registroDeCategorias[contadorCategoria] = new Categorias();
+
             Console.WriteLine("Digite o nome da categoria");
             registroDeCategorias[contadorCategoria].nome=Console.ReadLine();
 

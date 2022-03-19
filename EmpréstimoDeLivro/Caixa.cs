@@ -8,12 +8,12 @@ namespace EmprestimoDeLivro
 {
     internal class Caixa
     {
-        
+
         public string cor;
         public string etiquieta;
         public int numero;
-        public int contadorDeRevistasNaCaixa=0;
-        Revista [] revistasNaCaixa=new Revista [10];
+        public int contadorDeRevistasNaCaixa = 0;
+        Revista[] revistasNaCaixa = new Revista[10];
 
 
         public void InserirRevistaNaCaixa(Revista registroDeRevista)
@@ -23,5 +23,9 @@ namespace EmprestimoDeLivro
 
         }
 
+        public void MostrarRevistasNaCaixa()
+        {
+
+        }
     }
 }

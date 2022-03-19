@@ -59,7 +59,7 @@ namespace EmprestimoDeLivro
                     Console.Clear();
                     CadastrarRetirada();
                 }
-                else if(opcaoSubMenu =="7")
+                else if (opcaoSubMenu == "7")
                 {
                     Console.Clear();
                     MostrarEmprestimo();
@@ -91,6 +91,8 @@ namespace EmprestimoDeLivro
 
         public void AgendarEmprestimo()
         {
+            registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
+
             Console.WriteLine("Digite a data do empréstimo: (dd/mm/aaaa)");
             string emprestimos = Console.ReadLine();
 
@@ -114,7 +116,7 @@ namespace EmprestimoDeLivro
 
             if (AmigosEmprestimo.contadorAmigo > 0)
             {
-                registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
+                
 
                 Console.Clear();
                 AmigosEmprestimo.MostrarAmigos();
@@ -122,14 +124,20 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("Digite o id do amigo selecionado: ");
                 int seletorDeAmigos = Convert.ToInt32(Console.ReadLine());
 
-
-                if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
+                if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temMulta == false)
                 {
-                    registroDeEmprestimo[contadorEmprestimo].amigo = AmigosEmprestimo.registroDeAmigos[seletorDeAmigos];
+                    if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
+                    {
+                        registroDeEmprestimo[contadorEmprestimo].amigo = AmigosEmprestimo.registroDeAmigos[seletorDeAmigos];
+                    }
+                    else
+                    {
+                        Console.WriteLine("Esse amigo já tem um empréstimo");
+                        return;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Esse amigo já tem um empréstimo");
                     return;
                 }
 
@@ -386,16 +394,17 @@ namespace EmprestimoDeLivro
             int mesEmprestimo = int.Parse(dataSeparadaEntrega[1]);
             int anoEmprestimo = int.Parse(dataSeparadaEntrega[2]);
 
-            registroDeEmprestimo[contadorEmprestimo].entregaReal = new DateTime(anoEmprestimo,
+            registroDeEmprestimo[IDSelecionado].entregaReal = new DateTime(anoEmprestimo,
                 mesEmprestimo, diaEmprestimo);
 
-            if(registroDeEmprestimo[contadorEmprestimo].entregaReal> 
-                registroDeEmprestimo[contadorEmprestimo].dataLimite)
+            if (registroDeEmprestimo[IDSelecionado].entregaReal >
+                registroDeEmprestimo[IDSelecionado].dataLimite)
             {
-
+                registroDeEmprestimo[IDSelecionado].amigo.temMulta = true;
+                registroDeEmprestimo[IDSelecionado].amigo.Vacilo.diasDeMulta =
+                    registroDeEmprestimo[IDSelecionado].entregaReal.Day - registroDeEmprestimo[IDSelecionado].dataLimite.Day;
+                registroDeEmprestimo[IDSelecionado].amigo.Vacilo.valorDaMulta = registroDeEmprestimo[IDSelecionado].amigo.Vacilo.diasDeMulta * 0.5;
             }
-
-
 
         }
 
@@ -449,19 +458,19 @@ namespace EmprestimoDeLivro
                 Console.Clear();
                 return;
             }
-            
+
             for (int i = 0; i < contadorEmprestimo; i++)
             {
-                
-                for (int y = IDExclusão; y < contadorEmprestimo;y++)
+
+                for (int y = IDExclusão; y < contadorEmprestimo; y++)
                 {
 
                     registroDeEmprestimo[y].amigo.nome = registroDeEmprestimo[y + 1].amigo.nome;
-                    registroDeEmprestimo[y].revista.colecao = registroDeEmprestimo[y+1].revista.colecao;
+                    registroDeEmprestimo[y].revista.colecao = registroDeEmprestimo[y + 1].revista.colecao;
                     registroDeEmprestimo[y].dataLimite = registroDeEmprestimo[y + 1].dataLimite;
                     registroDeEmprestimo[y].dataLimite = registroDeEmprestimo[y + 1].dataLimite;
                 }
-                
+
                 contadorEmprestimo--;
 
                 Console.WriteLine("Excluido com sucesso");

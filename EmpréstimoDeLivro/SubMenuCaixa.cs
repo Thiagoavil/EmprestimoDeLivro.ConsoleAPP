@@ -21,6 +21,7 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("----------------------");
                 Console.WriteLine("1- Para cadastrar caixa");
                 Console.WriteLine("2- Para Mostrar caixa");
+                Console.WriteLine("3- Para Mostrar revistas da caixa");
                 Console.WriteLine("s- Para sair");
                 opcaoSubMenu = Console.ReadLine();
 
@@ -33,6 +34,12 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     MostrarCaixa();
+                }
+                else if(opcaoSubMenu == "3")
+                {
+                    Console.Clear();
+                    MostrarCaixa();
+                    
                 }
                 else if (opcaoSubMenu == "s")
                 {

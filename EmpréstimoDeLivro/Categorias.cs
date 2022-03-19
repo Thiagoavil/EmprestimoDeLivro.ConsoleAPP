@@ -20,5 +20,10 @@ namespace EmprestimoDeLivro
             contadorDeRevistasNaCategoria++;
              
         }
+
+        public void MostrarRevistasNaCategoria()
+        {
+
+        }
     }
 }

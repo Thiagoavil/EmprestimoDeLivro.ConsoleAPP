@@ -14,6 +14,7 @@ namespace EmprestimoDeLivro
         public string endereço;
         public bool temEmprestimo;
         public bool temMulta;
+        public Multa Vacilo;
 
     }
 }
