@@ -75,6 +75,7 @@ namespace EmprestimoDeLivro
             registroDeAmigos[contadorAmigo].endereço=Console.ReadLine();
 
             registroDeAmigos[contadorAmigo].temEmprestimo = false;
+            registroDeAmigos[contadorAmigo].temMulta=false;
             
             contadorAmigo++;
 

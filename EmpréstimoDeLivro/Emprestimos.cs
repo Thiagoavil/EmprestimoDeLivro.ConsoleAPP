@@ -10,8 +10,10 @@ namespace EmprestimoDeLivro
     {
         public Amigos amigo;
         public Revista revista;
-        public DateTime dataDoEmprestimo;
-        public DateTime dataDaDevolucao;
+        public DateTime DataDaRetirada;
+        public DateTime DataAgendada;
+        public DateTime dataLimite;
+        public DateTime entregaReal;
         public bool aberto;
 
 

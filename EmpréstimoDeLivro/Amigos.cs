@@ -13,6 +13,7 @@ namespace EmprestimoDeLivro
         public string telefone;
         public string endereço;
         public bool temEmprestimo;
+        public bool temMulta;
 
     }
 }
