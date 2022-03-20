@@ -39,6 +39,12 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     MostrarCaixa();
+                    Console.WriteLine("Digite o Id da caixa q quer visualizar");
+                    int idvisualizarCaixa=Convert.ToInt32(Console.ReadLine());
+                    Console.Clear();
+                   Console.WriteLine("etiquieta/cor da caixa visualizada"+
+                       registroDeCaixas[idvisualizarCaixa].etiquieta+"/"+registroDeCaixas[idvisualizarCaixa].cor);
+                    registroDeCaixas[idvisualizarCaixa].MostrarRevistasNaCaixa();
                     
                 }
                 else if (opcaoSubMenu == "s")

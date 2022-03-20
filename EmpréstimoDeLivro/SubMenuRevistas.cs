@@ -28,7 +28,7 @@ namespace EmprestimoDeLivro
                     Console.Clear();
                     CadastrarRevistas();
                 }
-                else if (opcaoSubMenu=="2")
+                else if (opcaoSubMenu == "2")
                 {
                     Console.Clear();
                     MostrarRevista();
@@ -58,92 +58,97 @@ namespace EmprestimoDeLivro
 
         public void CadastrarRevistas()
         {
-            if(CategoriaRevistas.contadorCategoria==0)
+            registroDeRevista[contadorRevista] = new Revista();
+
+            //validar categoria criada
+            if (CategoriaRevistas.contadorCategoria == 0)
             {
                 Console.Clear();
                 Console.WriteLine("Não existem categorias criadas");
                 return;
             }
+            //validar caixa criada
             if (CaixaRevista.contadorCaixa == 0)
             {
                 Console.WriteLine("Não existem caixas criadas");
                 return;
             }
-            else
+
+            Console.WriteLine("Digite a coleção da revista: ");
+            registroDeRevista[contadorRevista].colecao = Console.ReadLine();
+
+            Console.WriteLine("Digite a edição da revista: ");
+            registroDeRevista[contadorRevista].edicao = Console.ReadLine();
+
+            Console.WriteLine("Digite o ano de lançamento da revista: ");
+            registroDeRevista[contadorRevista].anoDeLancamento = Console.ReadLine();
+
+            Console.Clear();
+            CategoriaRevistas.VisualizarCategoria();
+
+            Console.WriteLine("Digite o Id Da categoria");
+            int seletorCategoria = Convert.ToInt32(Console.ReadLine());
+            registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.
+                registroDeCategorias[seletorCategoria];
+            Console.Clear();
+
+            while (true)
             {
-                registroDeRevista[contadorRevista] = new Revista();
+                CaixaRevista.MostrarCaixa();
 
-                Console.WriteLine("Digite a coleção da revista: ");
-                registroDeRevista[contadorRevista].colecao = Console.ReadLine();
+                Console.WriteLine("Digite o Id da caixa onde irá guardar");
+                seletorDaCaixa = Convert.ToInt32(Console.ReadLine());
+                if (CaixaRevista.registroDeCaixas[seletorDaCaixa].contadorDeRevistasNaCaixa == 10)
+                {
+                    Console.WriteLine("Essa caixa está cheia, selecione outra caixa");
+                    continue;
+                }
+                else
+                {
+                    registroDeRevista[contadorRevista].qualCaixa = CaixaRevista.registroDeCaixas[seletorDaCaixa];
+                    break;
+                }
 
-                Console.WriteLine("Digite a edição da revista: ");
-                registroDeRevista[contadorRevista].edicao = Console.ReadLine();
 
-                Console.WriteLine("Digite o ano de lançamento da revista: ");
-                registroDeRevista[contadorRevista].anoDeLancamento = Console.ReadLine();
+            }
 
-                Console.Clear();
+
+            while (true)
+            {
                 CategoriaRevistas.VisualizarCategoria();
 
-                Console.WriteLine("Digite o Id Da categoria");
-                int seletorCategoria =Convert.ToInt32(Console.ReadLine());
-                registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.
-                    registroDeCategorias[seletorCategoria];
-                Console.Clear();
-
-                while (true)
+                Console.WriteLine("Digite o Id da categoria selecionada");
+                int seletorDaCategoria = Convert.ToInt32(Console.ReadLine());
+                //validar se a categoria esrá cheia
+                if (CategoriaRevistas.registroDeCategorias[seletorCategoria].contadorDeRevistasNaCategoria < 20)
                 {
-                    CaixaRevista.MostrarCaixa();
+                    registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.registroDeCategorias[seletorDaCategoria];
 
-                    Console.WriteLine("Digite o Id da caixa onde irá guardar");
-                    seletorDaCaixa = Convert.ToInt32(Console.ReadLine());
-                    if (CaixaRevista.registroDeCaixas[seletorDaCaixa].contadorDeRevistasNaCaixa == 10)
-                    {
-                        Console.WriteLine("Essa caixa está cheia, selecione outra caixa");
-                        continue;
-                    }
-                    else
-                    {
-                        registroDeRevista[contadorRevista].qualCaixa = CaixaRevista.registroDeCaixas[seletorDaCaixa];
-                        break;
-                    }
-
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Essa categoria está cheia");
+                    return;
 
                 }
-               
-                
-                while(true)
-                {
-                    CategoriaRevistas.VisualizarCategoria();
-                    
-                    Console.WriteLine("Digite o Id da categoria selecionada");
-                    int seletorDaCategoria = Convert.ToInt32(Console.ReadLine());
-                    
-                    if (CategoriaRevistas.registroDeCategorias[seletorCategoria].contadorDeRevistasNaCategoria<20)
-                    {
-                        Console.WriteLine("Essa categoria está cheia");
-                        return;
-                    }
-                    else
-                    {
-                        registroDeRevista[contadorRevista].qualCategoria = CategoriaRevistas.registroDeCategorias[seletorDaCategoria];
-                        
-                        break;
-                    }
-                }
-                    
-                CategoriaRevistas.registroDeCategorias[seletorCategoria].
-                    InserirRevistaNaCategoria(registroDeRevista[contadorRevista]);
-
-                CaixaRevista.registroDeCaixas[seletorDaCaixa].
-                    InserirRevistaNaCaixa(registroDeRevista[contadorRevista]);
-                contadorRevista++;
             }
+            
+            //guardando a revista na categoria
+            CategoriaRevistas.registroDeCategorias[seletorCategoria].
+                InserirRevistaNaCategoria(registroDeRevista[contadorRevista]);
+           
+            //guardando a revista na caixa
+            CaixaRevista.registroDeCaixas[seletorDaCaixa].
+                InserirRevistaNaCaixa(registroDeRevista[contadorRevista]);
+            
+            contadorRevista++;
+
             Console.Clear();
         }
         public void MostrarRevista()
         {
-            if(contadorRevista==0)
+            if (contadorRevista == 0)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Não existem Revistas");
@@ -159,9 +164,9 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("Coleção: " + registroDeRevista[i].colecao);
                 Console.WriteLine("Edição: " + registroDeRevista[i].edicao);
                 Console.WriteLine("Ano de lançamento: " + registroDeRevista[i].anoDeLancamento);
-                Console.WriteLine("Cor/numero da caixa: " + registroDeRevista[i].qualCaixa.cor+"/"+
+                Console.WriteLine("Cor/numero da caixa: " + registroDeRevista[i].qualCaixa.cor + "/" +
                     registroDeRevista[i].qualCaixa.numero);
-                Console.WriteLine("Categoria: "+ registroDeRevista[i].qualCategoria.nome);  
+                Console.WriteLine("Categoria: " + registroDeRevista[i].qualCategoria.nome);
                 Console.WriteLine("");
             }
         }

@@ -27,8 +27,14 @@ namespace EmprestimoDeLivro
         {
             for (int i = 0; i < contadorDeRevistasNaCaixa; i++)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("coleção da revista: " + revistasNaCaixa[i].colecao);
+                Console.WriteLine("");
             }
+            Console.ResetColor();
+            Console.WriteLine("Pressione enter para continuar");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

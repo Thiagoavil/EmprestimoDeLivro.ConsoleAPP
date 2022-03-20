@@ -23,7 +23,8 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("Menu categorias");
                 Console.WriteLine("---------------------");
                 Console.WriteLine("1- Cadastrar categoria");
-                Console.WriteLine("2- vsualizar categoria");
+                Console.WriteLine("2- Visualizar categorias");
+                Console.WriteLine("3- Visualizar revistas da categoria");
                 Console.WriteLine("s- Para sair");
 
                 if (opcaoCategoria== "1")
@@ -35,6 +36,31 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     VisualizarCategoria();
+                }
+                else if(opcaoCategoria=="3")
+                {
+                    Console.Clear();
+                    VisualizarCategoria();
+                    Console.WriteLine("Digite o Id Da categoria para visualizar");
+                    int idvisualizarcategoria = Convert.ToInt32(Console.ReadLine());
+
+                    registroDeCategorias[idvisualizarcategoria].MostrarRevistasNaCategoria();
+                }
+                else if (opcaoCategoria == "s")
+                {
+                    Console.Clear();
+                    break;
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Opção inválida");
+                    Console.ResetColor();
+                    Console.WriteLine("pressione enter para continuar ");
+                    Console.ReadKey();
+                    Console.Clear();
+                    continue;
                 }
             }
         }
@@ -67,8 +93,15 @@ namespace EmprestimoDeLivro
             {
                 Console.WriteLine("Nome da categoria: " + registroDeCategorias[i].nome);
                 Console.WriteLine("Dias totais de emprestimo: " + registroDeCategorias[i].diasDeEmprestimo);
-                Console.WriteLine("Qual a revista: " + registroDeCategorias[i].qualrevista.colecao);
-                
+                //revistas na categoria
+                for (int j = 0; j < registroDeCategorias[i].contadorDeRevistasNaCategoria; j++)
+                {
+                    if (registroDeCategorias[i].contadorDeRevistasNaCategoria==0)
+                    {
+                        break;
+                    }
+                    Console.WriteLine("revista: " + registroDeCategorias[j].qualrevista.colecao);
+                }
             }
         }
     }

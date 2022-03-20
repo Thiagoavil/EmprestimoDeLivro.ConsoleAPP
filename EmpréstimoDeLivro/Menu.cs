@@ -21,7 +21,8 @@ namespace EmprestimoDeLivro
 
 
 
-
+            
+            #region menu principal
             while (true)
             {
                 Console.WriteLine("Clube da Leitura");
@@ -72,7 +73,7 @@ namespace EmprestimoDeLivro
                     continue;
                 }
 
-
+                #endregion
             }
         }
     }

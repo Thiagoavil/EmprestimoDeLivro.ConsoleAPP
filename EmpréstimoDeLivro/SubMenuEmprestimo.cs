@@ -88,7 +88,7 @@ namespace EmprestimoDeLivro
         }
 
 
-
+        //só pode fazer agendamentos para dias futuros
         public void AgendarEmprestimo()
         {
             registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
@@ -104,7 +104,7 @@ namespace EmprestimoDeLivro
             registroDeEmprestimo[contadorEmprestimo].DataAgendada = new DateTime(anoEmprestimo,
                 mesEmprestimo, diaEmprestimo);
 
-
+            //agendamentos só para dias futuros
             if (registroDeEmprestimo[contadorEmprestimo].DataAgendada <= hoje)
             {
                 Console.WriteLine("Agendamento de empréstimos só podem ser feitos para dias futuros");
@@ -123,9 +123,10 @@ namespace EmprestimoDeLivro
 
                 Console.WriteLine("Digite o id do amigo selecionado: ");
                 int seletorDeAmigos = Convert.ToInt32(Console.ReadLine());
-
+                //validação da multa
                 if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temMulta == false)
                 {
+                    //validação de emprestimo existente
                     if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
                     {
                         registroDeEmprestimo[contadorEmprestimo].amigo = AmigosEmprestimo.registroDeAmigos[seletorDeAmigos];
@@ -138,6 +139,7 @@ namespace EmprestimoDeLivro
                 }
                 else
                 {
+                    Console.WriteLine("Esse amigo tem uma multa em aberto");
                     return;
                 }
 
@@ -169,24 +171,18 @@ namespace EmprestimoDeLivro
             Console.Clear();
             Console.WriteLine("O amigo selecionado é: " + AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].nome);
             Console.WriteLine("A revista selecionada é: " + RevistasEmprestimos.registroDeRevista[contadorEmprestimo].colecao);
+            Console.WriteLine("Pressione enter para continuar");
+            Console.ReadKey();
+            Console.Clear();
 
-            registroDeEmprestimo[contadorEmprestimo].DataAgendada.AddDays(RevistasEmprestimos.
+            registroDeEmprestimo[contadorEmprestimo].dataLimite.AddDays(RevistasEmprestimos.
                 registroDeRevista[seletorDeRevista].qualCategoria.diasDeEmprestimo);
-
+            //colocando amigo como tem emprestimo
             AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
-
-            if (registroDeEmprestimo[contadorEmprestimo].DataAgendada < hoje)
-            {
-                registroDeEmprestimo[contadorEmprestimo].aberto = false;
-            }
-            else
-            {
-                registroDeEmprestimo[contadorEmprestimo].aberto = true;
-            }
+            //colocando emprestimo como eberto
+            registroDeEmprestimo[contadorEmprestimo].aberto = false;
 
             contadorEmprestimo++;
-
-            Console.Clear();
         }
 
         public void MostrarEmprestimo()
@@ -240,7 +236,7 @@ namespace EmprestimoDeLivro
                     {
                         Console.WriteLine("Amigo: " + registroDeEmprestimo[marcador].amigo);
                         Console.WriteLine("Revista: " + registroDeEmprestimo[marcador].revista);
-                        Console.WriteLine("Data de empréstimo: " + registroDeEmprestimo[marcador].DataDaRetirada);
+                        Console.WriteLine("Data agendada para retirada: " + registroDeEmprestimo[marcador].DataAgendada);
                         Console.WriteLine("Data de devolução: " + registroDeEmprestimo[marcador].dataLimite);
 
                     }
@@ -268,14 +264,14 @@ namespace EmprestimoDeLivro
             int marcador = 0;
             Console.WriteLine("Emprestimos Diário");
             Console.WriteLine("-----------------------");
-            Console.WriteLine("Digite o dia que quer ver:  (mm)");
+            Console.WriteLine("Digite o dia que quer ver:  (dd)");
             int diaDigitado = Convert.ToInt32(Console.ReadLine());
 
             while (marcador > contadorEmprestimo)
             {
-                if (registroDeEmprestimo[marcador].dataLimite.Year == hoje.Year &&
-                    registroDeEmprestimo[marcador].dataLimite.Month == hoje.Month &&
-                    registroDeEmprestimo[marcador].dataLimite.Day == diaDigitado)
+                if (registroDeEmprestimo[marcador].DataAgendada.Year == hoje.Year &&
+                    registroDeEmprestimo[marcador].DataAgendada.Month == hoje.Month &&
+                    registroDeEmprestimo[marcador].DataAgendada.Day == diaDigitado)
                 {
 
                     if (registroDeEmprestimo[marcador].aberto)
@@ -283,7 +279,7 @@ namespace EmprestimoDeLivro
                         Console.WriteLine("Amigo: " + registroDeEmprestimo[marcador].amigo);
                         Console.WriteLine("Revista: " + registroDeEmprestimo[marcador].revista);
                         Console.WriteLine("Data de empréstimo: " + registroDeEmprestimo[marcador].
-                            DataDaRetirada);
+                            DataAgendada);
                         Console.WriteLine("Data de devolução: " + registroDeEmprestimo[marcador].
                             dataLimite);
                     }
@@ -295,13 +291,11 @@ namespace EmprestimoDeLivro
 
         public void CadastraEmprestimo()
         {
+            registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
             registroDeEmprestimo[contadorEmprestimo].DataAgendada = hoje;
-
+            
             if (AmigosEmprestimo.contadorAmigo > 0)
             {
-                registroDeEmprestimo[contadorEmprestimo] = new Emprestimos();
-
-
                 AmigosEmprestimo.MostrarAmigos();
 
                 Console.WriteLine("Digite o id do amigo selecionado: ");
@@ -349,17 +343,11 @@ namespace EmprestimoDeLivro
 
             registroDeEmprestimo[contadorEmprestimo].dataLimite = registroDeEmprestimo[contadorEmprestimo].dataLimite.AddDays(RevistasEmprestimos.
                 registroDeRevista[contadorEmprestimo].qualCategoria.diasDeEmprestimo);
-
+            //colocando amigo como tem empréstimo
             AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
-
-            if (registroDeEmprestimo[contadorEmprestimo].dataLimite < hoje)
-            {
-                registroDeEmprestimo[contadorEmprestimo].aberto = false;
-            }
-            else
-            {
-                registroDeEmprestimo[contadorEmprestimo].aberto = true;
-            }
+            //colocando emprestimo como aberto
+            registroDeEmprestimo[contadorEmprestimo].aberto = true;
+           
 
             contadorEmprestimo++;
 
@@ -405,7 +393,10 @@ namespace EmprestimoDeLivro
                     registroDeEmprestimo[IDSelecionado].entregaReal.Day - registroDeEmprestimo[IDSelecionado].dataLimite.Day;
                 registroDeEmprestimo[IDSelecionado].amigo.Vacilo.valorDaMulta = registroDeEmprestimo[IDSelecionado].amigo.Vacilo.diasDeMulta * 0.5;
             }
-
+            //fechando o emprestimo
+            registroDeEmprestimo[IDSelecionado].aberto = false;
+            //tirando o emprestimo do amigo
+            AmigosEmprestimo.registroDeAmigos[IDSelecionado].temEmprestimo = false;
         }
 
         public void CadastrarRetirada()
@@ -438,8 +429,8 @@ namespace EmprestimoDeLivro
                 return;
             }
 
-            registroDeEmprestimo[IDRetirada].dataLimite.AddDays
-                (registroDeEmprestimo[IDRetirada].revista.qualCategoria.diasDeEmprestimo);
+            registroDeEmprestimo[IDRetirada].dataLimite= registroDeEmprestimo[IDRetirada].DataDaRetirada.AddDays(
+                registroDeEmprestimo[IDRetirada].revista.qualCategoria.diasDeEmprestimo);
 
             registroDeEmprestimo[IDRetirada].DataAgendada = registroDeEmprestimo[IDRetirada].DataDaRetirada;
 

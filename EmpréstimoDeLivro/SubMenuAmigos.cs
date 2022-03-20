@@ -15,6 +15,7 @@ namespace EmprestimoDeLivro
 
         public void MenuAmigos()
         {
+           
             while (true)
             {
                 Console.WriteLine("Menu de Amigos");
@@ -56,11 +57,11 @@ namespace EmprestimoDeLivro
                     Console.Clear();
                     continue;
                 }
-
+               
 
             }
+            
         }
-
 
 
         public void CadastrarAmigo()
@@ -122,6 +123,7 @@ namespace EmprestimoDeLivro
 
         public void Quitardivida()
         {
+            //amigos com multa
             for (int i = 0; i < contadorAmigo; i++)
             {
                 if (registroDeAmigos[i].temMulta)
@@ -139,21 +141,28 @@ namespace EmprestimoDeLivro
             
             Console.WriteLine("Digite o valor pago: ");
             double valorPago=Convert.ToDouble(Console.ReadLine());
-
+           
+            //pagamneto total ou parcial da divida
             registroDeAmigos[idDaDivida].Vacilo.valorDaMulta = 
                 registroDeAmigos[idDaDivida].Vacilo.valorDaMulta - valorPago;
 
+            //Se pagou tudo zera a divida e quita a multa
             if(registroDeAmigos[idDaDivida].Vacilo.valorDaMulta==0)
             {
                 registroDeAmigos[idDaDivida].temMulta = false;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("divida quitada por completo");
+                Console.ResetColor();
                 Console.WriteLine("Pressione enter para continuar");
                 Console.ReadKey();
                 return;
             }
+            //O quando sobrou para quitar a divida
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Valor restante de multa: R$"+ registroDeAmigos[idDaDivida].Vacilo.valorDaMulta);
+                Console.ResetColor();
                 Console.WriteLine("Presione enter para continuar: ");
                 Console.ReadKey();
                 Console.Clear();
