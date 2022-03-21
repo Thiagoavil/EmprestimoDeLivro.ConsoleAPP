@@ -44,10 +44,19 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     VisualizarCategoria();
-                    Console.WriteLine("Digite o Id Da categoria para visualizar");
-                    int idvisualizarcategoria = Convert.ToInt32(Console.ReadLine());
+                    
+                    if(contadorCategoria==0)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Digite o Id Da categoria para visualizar");
+                        int idvisualizarcategoria = Convert.ToInt32(Console.ReadLine());
 
-                    registroDeCategorias[idvisualizarcategoria].MostrarRevistasNaCategoria();
+                        registroDeCategorias[idvisualizarcategoria].MostrarRevistasNaCategoria();
+                    }
+                    
                 }
                 else if (opcaoCategoria == "s")
                 {
