@@ -26,6 +26,7 @@ namespace EmprestimoDeLivro
             if (contadorDeRevistasNaCategoria == 0)
             {
                 Console.WriteLine("Não existem revistas na categoria");
+                Console.WriteLine("");
                 return;
             }
             for (int i = 0;i<contadorDeRevistasNaCategoria; i++)

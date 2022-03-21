@@ -28,6 +28,7 @@ namespace EmprestimoDeLivro
             if(contadorDeRevistasNaCaixa==0)
             {
                 Console.WriteLine("Não existem revistas na caixa");
+                Console.WriteLine("");
                 return;
             }
             for (int i = 0; i < contadorDeRevistasNaCaixa; i++)
