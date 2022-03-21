@@ -26,6 +26,7 @@ namespace EmprestimoDeLivro
                 Console.WriteLine("2- Visualizar categorias");
                 Console.WriteLine("3- Visualizar revistas da categoria");
                 Console.WriteLine("s- Para sair");
+                opcaoCategoria =Console.ReadLine();
 
                 if (opcaoCategoria== "1")
                 {
