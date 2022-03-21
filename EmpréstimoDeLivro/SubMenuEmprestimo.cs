@@ -10,6 +10,7 @@ namespace EmprestimoDeLivro
         public Emprestimos[] registroDeEmprestimo = new Emprestimos[100];
         string opcaoSubMenu = "0";
         int seletorDeRevista;
+        public int contadorDivida = 0;
         DateTime hoje = DateTime.Now;
 
         public void MenuEmprestimo()
@@ -38,6 +39,9 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     MostrarEmprestimo();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
                 else if (opcaoSubMenu == "3")
                 {
@@ -123,6 +127,8 @@ namespace EmprestimoDeLivro
 
                 Console.WriteLine("Digite o id do amigo selecionado: ");
                 int seletorDeAmigos = Convert.ToInt32(Console.ReadLine());
+               
+                
                 //validação da multa
                 if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temMulta == false)
                 {
@@ -133,20 +139,32 @@ namespace EmprestimoDeLivro
                     }
                     else
                     {
+                        Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Esse amigo já tem um empréstimo");
+                        Console.ResetColor();
+                        Console.WriteLine("Pressione enter para continuar");
+                        Console.Clear();
                         return;
                     }
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Esse amigo tem uma multa em aberto");
+                    Console.ResetColor();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.Clear();
                     return;
                 }
 
             }
             else
             {
-                Console.WriteLine("Ñão existem amigos cadastrados");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Não existem amigos cadastrados");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.Clear();
                 return;
             }
             Console.Clear();
@@ -158,9 +176,22 @@ namespace EmprestimoDeLivro
             {
                 RevistasEmprestimos.MostrarRevista();
                 Console.WriteLine("Digite o id da revista selecionada: ");
-                seletorDeRevista = Convert.ToInt32(Console.ReadLine());
-
-                registroDeEmprestimo[contadorEmprestimo].revista = RevistasEmprestimos.registroDeRevista[seletorDeRevista];
+                int seletorDeRevista = Convert.ToInt32(Console.ReadLine());
+                
+                //revista ja foi emprestada
+                if (registroDeEmprestimo[seletorDeRevista].revista.taEmprestada == false)
+                {
+                    registroDeEmprestimo[contadorEmprestimo].revista = RevistasEmprestimos.registroDeRevista[seletorDeRevista];
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Essa revista ja foi emprestada");
+                    Console.ResetColor();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.Clear();
+                    return;
+                }
             }
             else
             {
@@ -300,14 +331,33 @@ namespace EmprestimoDeLivro
 
                 Console.WriteLine("Digite o id do amigo selecionado: ");
                 int seletorDeAmigos = Convert.ToInt32(Console.ReadLine());
-
-                if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
+               
+                //validação da multa
+                if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temMulta == false)
                 {
-                    registroDeEmprestimo[contadorEmprestimo].amigo = AmigosEmprestimo.registroDeAmigos[seletorDeAmigos];
+
+                    //validação de emprestimo
+                    if (AmigosEmprestimo.registroDeAmigos[seletorDeAmigos].temEmprestimo == false)
+                    {
+                        registroDeEmprestimo[contadorEmprestimo].amigo = AmigosEmprestimo.registroDeAmigos[seletorDeAmigos];
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Esse amigo tem empréstimo");
+                        Console.ResetColor();
+                        Console.WriteLine("Pressione enter para continuar");
+                        Console.Clear();
+                        return;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Esse amigo já tem um empréstimo");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Esse amigo tem multa");
+                    Console.ResetColor();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.Clear();
                     return;
                 }
 
@@ -327,8 +377,21 @@ namespace EmprestimoDeLivro
                 RevistasEmprestimos.MostrarRevista();
                 Console.WriteLine("Digite o id da revista selecionada: ");
                 int seletorDeRevista = Convert.ToInt32(Console.ReadLine());
-
-                registroDeEmprestimo[contadorEmprestimo].revista = RevistasEmprestimos.registroDeRevista[seletorDeRevista];
+                
+                //revista ja foi emprestada
+                if (registroDeEmprestimo[seletorDeRevista].revista.taEmprestada == false)
+                {
+                    registroDeEmprestimo[contadorEmprestimo].revista = RevistasEmprestimos.registroDeRevista[seletorDeRevista];
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Essa revista ja foi emprestada");
+                    Console.ResetColor();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.Clear();
+                    return;
+                }
             }
             else
             {
@@ -347,7 +410,8 @@ namespace EmprestimoDeLivro
             AmigosEmprestimo.registroDeAmigos[contadorEmprestimo].temEmprestimo = true;
             //colocando emprestimo como aberto
             registroDeEmprestimo[contadorEmprestimo].aberto = true;
-           
+            //colocando que a revista está emprestada
+            registroDeEmprestimo[contadorEmprestimo].revista.taEmprestada = true;
 
             contadorEmprestimo++;
 
@@ -375,7 +439,10 @@ namespace EmprestimoDeLivro
             Console.Clear();
 
             Console.WriteLine("Digite a data de devolução: (dd/mm/aaaa)");
-            string EntregaDigitada = Console.ReadLine();
+            registroDeEmprestimo[IDSelecionado].entregaReal = DateTime.Parse(Console.ReadLine());
+           
+            //safe point
+            /* string EntregaDigitada = Console.ReadLine();
 
             string[] dataSeparadaEntrega = EntregaDigitada.Split("/");
             int diaEmprestimo = int.Parse(dataSeparadaEntrega[0]);
@@ -383,7 +450,7 @@ namespace EmprestimoDeLivro
             int anoEmprestimo = int.Parse(dataSeparadaEntrega[2]);
 
             registroDeEmprestimo[IDSelecionado].entregaReal = new DateTime(anoEmprestimo,
-                mesEmprestimo, diaEmprestimo);
+                mesEmprestimo, diaEmprestimo);*/
 
             if (registroDeEmprestimo[IDSelecionado].entregaReal >
                 registroDeEmprestimo[IDSelecionado].dataLimite)
@@ -392,6 +459,7 @@ namespace EmprestimoDeLivro
                 registroDeEmprestimo[IDSelecionado].amigo.Vacilo.diasDeMulta =
                     registroDeEmprestimo[IDSelecionado].entregaReal.Day - registroDeEmprestimo[IDSelecionado].dataLimite.Day;
                 registroDeEmprestimo[IDSelecionado].amigo.Vacilo.valorDaMulta = registroDeEmprestimo[IDSelecionado].amigo.Vacilo.diasDeMulta * 0.5;
+                contadorDivida++;
             }
             //fechando o emprestimo
             registroDeEmprestimo[IDSelecionado].aberto = false;

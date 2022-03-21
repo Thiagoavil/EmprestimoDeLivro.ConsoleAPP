@@ -11,6 +11,7 @@ namespace EmprestimoDeLivro
 
         public int contadorAmigo = 0;
         public Amigos[] registroDeAmigos = new Amigos[100];
+        public SubMenuEmprestimo EmprestimoAmigo;
         string opcaoSubMenu = "0";
 
         public void MenuAmigos()
@@ -35,6 +36,9 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     MostrarAmigos();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
                 else if (opcaoSubMenu == "3")
                 {
@@ -123,6 +127,16 @@ namespace EmprestimoDeLivro
 
         public void Quitardivida()
         {
+            if(EmprestimoAmigo.contadorDivida==0)
+            {
+                Console.ForegroundColor= ConsoleColor.Red;
+                Console.WriteLine("Sem dividas existentes");
+                Console.ResetColor();
+                Console.WriteLine("Pressione enter para continuar");
+                Console.ReadKey();
+                return;
+            }
+            
             //amigos com multa
             for (int i = 0; i < contadorAmigo; i++)
             {

@@ -36,6 +36,9 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     VisualizarCategoria();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
                 else if(opcaoCategoria=="3")
                 {

@@ -32,6 +32,9 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     MostrarRevista();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
                 else if (opcaoSubMenu == "s")
                 {

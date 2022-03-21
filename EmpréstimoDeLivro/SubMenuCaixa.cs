@@ -34,6 +34,9 @@ namespace EmprestimoDeLivro
                 {
                     Console.Clear();
                     MostrarCaixa();
+                    Console.WriteLine("Pressione enter para continuar");
+                    Console.ReadKey();
+                    Console.Clear();
                 }
                 else if(opcaoSubMenu == "3")
                 {

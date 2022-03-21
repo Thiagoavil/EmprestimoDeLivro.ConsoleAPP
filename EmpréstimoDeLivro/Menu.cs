@@ -13,6 +13,7 @@ namespace EmprestimoDeLivro
             SubMenuRevistas subMenuRevistas = new SubMenuRevistas();
             SubMenuEmprestimo subMenuEmprestimo= new SubMenuEmprestimo();
             SubMenuCategorias subMenuCategorias = new SubMenuCategorias();
+            subMenuAmigos.EmprestimoAmigo = subMenuEmprestimo;
             subMenuEmprestimo.AmigosEmprestimo = subMenuAmigos;
             subMenuEmprestimo.RevistasEmprestimos = subMenuRevistas;
             subMenuRevistas.CaixaRevista = subMenuCaixa;
