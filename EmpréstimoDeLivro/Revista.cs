@@ -13,7 +13,7 @@ namespace EmprestimoDeLivro
         public string anoDeLancamento;
         public Caixa qualCaixa;
         public Categorias qualCategoria;
-        public bool taEmprestada;
+        public bool taEmprestada= false;
         
 
         

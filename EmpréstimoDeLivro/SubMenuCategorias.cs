@@ -103,6 +103,7 @@ namespace EmprestimoDeLivro
             }
             for (int i = 0; i < contadorCategoria; i++)
             {
+                Console.WriteLine("Id: "+ i);
                 Console.WriteLine("Nome da categoria: " + registroDeCategorias[i].nome);
                 Console.WriteLine("Dias totais de emprestimo: " + registroDeCategorias[i].diasDeEmprestimo);
                 //revistas na categoria
@@ -114,6 +115,7 @@ namespace EmprestimoDeLivro
                     }
                     Console.WriteLine("revista: " + registroDeCategorias[j].qualrevista.colecao);
                 }
+                Console.WriteLine("");
             }
         }
     }
