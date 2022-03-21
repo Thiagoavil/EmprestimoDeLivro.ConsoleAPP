@@ -23,7 +23,12 @@ namespace EmprestimoDeLivro
 
         public void MostrarRevistasNaCategoria()
         {
-            for(int i = 0;i<contadorDeRevistasNaCategoria; i++)
+            if (contadorDeRevistasNaCategoria == 0)
+            {
+                Console.WriteLine("Não existem revistas na categoria");
+                return;
+            }
+            for (int i = 0;i<contadorDeRevistasNaCategoria; i++)
             {
                 Console.ForegroundColor = ConsoleColor.DarkMagenta;
                 Console.WriteLine("coleção da revista: " + revistasNaCategoria[i].colecao);

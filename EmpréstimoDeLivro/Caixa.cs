@@ -25,6 +25,11 @@ namespace EmprestimoDeLivro
 
         public void MostrarRevistasNaCaixa()
         {
+            if(contadorDeRevistasNaCaixa==0)
+            {
+                Console.WriteLine("Não existem revistas na caixa");
+                return;
+            }
             for (int i = 0; i < contadorDeRevistasNaCaixa; i++)
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
