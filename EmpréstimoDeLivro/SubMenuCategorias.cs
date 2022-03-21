@@ -87,6 +87,8 @@ namespace EmprestimoDeLivro
 
             Console.WriteLine("Digite a quantidade de dias do Empréstimo");
             registroDeCategorias[contadorCategoria].diasDeEmprestimo=Convert.ToInt32(Console.ReadLine());
+            
+            contadorCategoria++;
 
         }
 
